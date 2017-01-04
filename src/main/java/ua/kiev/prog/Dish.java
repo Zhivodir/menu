@@ -1,13 +1,29 @@
 package ua.kiev.prog;
 
+import javax.persistence.*;
+
 /**
  * Created by User on 04.01.2017.
  */
+@Entity
+@Table(name = "dish")
 public class Dish {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private double price;
+
+    @Column(name = "weight")
     private int weight;
+
+    @Column(name = "isSale")
     private boolean isDiscount;
 
     public Dish() {

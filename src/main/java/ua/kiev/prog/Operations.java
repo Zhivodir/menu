@@ -30,15 +30,55 @@ public class Operations {
             int check = Integer.parseInt(scanner.nextLine());
             switch (check){
                 case 1:
+                    addNewDish();
                     break;
                 case 2:
+                    selectDishesFromRange();
                     break;
                 case 3:
+                    justWithDiscount();
                     break;
                 case 4:
+                    selectOneKg();
                     break;
             }
         }
+    }
+
+    public void addNewDish(){
+        System.out.println();
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter price: ");
+        double price = Double.parseDouble(scanner.nextLine());
+        System.out.print("Enter weight: ");
+        int weight = Integer.parseInt(scanner.nextLine());
+        System.out.print("Is discount (y/n): ");
+        boolean isDiscount = false;
+        String answer = scanner.nextLine();
+        if(answer.equals("y"))
+            isDiscount = true;
+
+        em.getTransaction().begin();
+        try{
+            Dish dish = new Dish(name, price, weight, isDiscount);
+            em.persist(dish);
+            em.getTransaction().commit();
+        }catch (Exception e){
+            em.getTransaction().rollback();
+        }
+    }
+
+    public void selectDishesFromRange(){
+
+    }
+
+    public void justWithDiscount(){
+
+    }
+
+    public void selectOneKg(){
+
     }
 
 
