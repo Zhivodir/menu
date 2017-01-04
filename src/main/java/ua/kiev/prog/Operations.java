@@ -1,8 +1,7 @@
 package ua.kiev.prog;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -70,16 +69,42 @@ public class Operations {
     }
 
     public void selectDishesFromRange(){
+        System.out.println();
+        System.out.print("Enter min price: ");
+        double min = Double.parseDouble(scanner.nextLine());
+        System.out.print("Enter max price: ");
+        double max = Double.parseDouble(scanner.nextLine());
+        List<Dish> result = null;
 
+        Query query = em.createQuery("SELECT dish FROM Dish dish", Dish.class);
+        result = (List<Dish>) query.getResultList();
+        for (Dish dish : result) {
+            System.out.println(dish);
+        }
     }
 
     public void justWithDiscount(){
+        System.out.println();
+        List<Dish> result = null;
 
+        Query query = em.createQuery("SELECT dish FROM Dish dish WHERE dish.isSale = 1", Dish.class);
+        result = (List<Dish>) query.getResultList();
+        for (Dish dish : result) {
+            System.out.println(dish);
+        }
     }
 
     public void selectOneKg(){
+        System.out.println();
+        List<Dish> result = null;
 
+        Query query = em.createQuery("SELECT dish FROM Dish dish WHERE dish.weight < 1000", Dish.class);
+        int sum = 0;
+        for (Dish dish : result) {
+            if(sum + dish.getWeight() <= 1000) {
+                sum += dish.getWeight();
+                System.out.println(dish);
+            }
+        }
     }
-
-
 }
