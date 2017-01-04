@@ -71,12 +71,14 @@ public class Operations {
     public void selectDishesFromRange(){
         System.out.println();
         System.out.print("Enter min price: ");
-        double min = Double.parseDouble(scanner.nextLine());
+        double minPrice = Double.parseDouble(scanner.nextLine());
         System.out.print("Enter max price: ");
-        double max = Double.parseDouble(scanner.nextLine());
+        double maxPrice = Double.parseDouble(scanner.nextLine());
         List<Dish> result = null;
 
-        Query query = em.createQuery("SELECT dish FROM Dish dish", Dish.class);
+        Query query = em.createQuery("SELECT dish FROM Dish dish WHERE dish.price BETWEEN :minPrice AND :maxPrice", Dish.class);
+        query.setParameter("minPrice", minPrice);
+        query.setParameter("maxPrice", maxPrice);
         result = (List<Dish>) query.getResultList();
         for (Dish dish : result) {
             System.out.println(dish);
@@ -87,7 +89,7 @@ public class Operations {
         System.out.println();
         List<Dish> result = null;
 
-        Query query = em.createQuery("SELECT dish FROM Dish dish WHERE dish.isSale = 1", Dish.class);
+        Query query = em.createQuery("SELECT dish FROM Dish dish WHERE dish.isDiscount = 1", Dish.class);
         result = (List<Dish>) query.getResultList();
         for (Dish dish : result) {
             System.out.println(dish);

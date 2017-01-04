@@ -75,4 +75,9 @@ public class Dish {
     public void setDiscount(boolean discount) {
         isDiscount = discount;
     }
+
+    @Override
+    public String toString() {
+        return name  + " " + price + " " + weight + " " + isDiscount;
+    }
 }
